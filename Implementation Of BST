@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* left;
+    Node* right;
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+
+class BST {
+public:
+    Node* insert(Node* root, int val) {
+        if (!root) return new Node(val);
+        if (val < root->data)
+            root->left = insert(root->left, val);
+        else if (val > root->data)
+            root->right = insert(root->right, val);
+        return root;
+    }
+
+    bool search(Node* root, int key) {
+        if (!root) return false;
+        if (root->data == key) return true;
+        if (key < root->data) return search(root->left, key);
+        return search(root->right, key);
+    }
+
+    Node* findMin(Node* root) {
+        while (root->left) root = root->left;
+        return root;
+    }
+
+    Node* deleteNode(Node* root, int key) {
+        if (!root) return NULL;
+        if (key < root->data)
+            root->left = deleteNode(root->left, key);
+        else if (key > root->data)
+            root->right = deleteNode(root->right, key);
+        else {
+            if (!root->left) {
+                Node* temp = root->right;
+                delete root;
+                return temp;
+            } else if (!root->right) {
+                Node* temp = root->left;
+                delete root;
+                return temp;
+            }
+            Node* temp = findMin(root->right);
+            root->data = temp->data;
+            root->right = deleteNode(root->right, temp->data);
+        }
+        return root;
+    }
+
+    void inorder(Node* root) {
+        if (!root) return;
+        inorder(root->left);
+        cout << root->data << " ";
+        inorder(root->right);
+    }
+};
+
+int main() {
+    BST tree;
+    Node* root = NULL;
+
+    root = tree.insert(root, 50);
+    root = tree.insert(root, 30);
+    root = tree.insert(root, 70);
+    root = tree.insert(root, 20);
+    root = tree.insert(root, 40);
+    root = tree.insert(root, 60);
+    root = tree.insert(root, 80);
+
+    cout << "Inorder Traversal: ";
+    tree.inorder(root);
+    cout << "\nSearch 40: " << (tree.search(root, 40) ? "Found" : "Not Found");
+
+    root = tree.deleteNode(root, 50);
+    cout << "\nAfter deleting 50, Inorder: ";
+    tree.inorder(root);
+
+    return 0;
+}
