@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+int solve(string str, int length) {
+  int cv = 0, cc = 0, cw = 0;
+  for (int i = 0; i < length; i++) 
+  {
+    str[i] = towlower(str[i]);
+  }
+  for (int i = 0; i < length; i++) {
+    if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u')
+      cv++;
+    else if (str[i] >= 'a' && str[i] <= 'z')
+      cc++;
+    else if (str[i] == ' ')
+      cw++;
+  }
+
+  cout << "Vowels: " << cv << "\n";
+  cout << "Consonants: " << cc << "\n";
+  cout << "White Spaces: " << cw << "\n";
+
+}
+int main() {
+  string str = "Hello Hey Welcome";
+  int length = str.length();
+  solve(str, length);
+  return 0;
+}
