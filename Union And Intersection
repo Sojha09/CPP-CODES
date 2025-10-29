@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> findUnion(vector<int>& a, vector<int>& b) {
+    set<int> s(a.begin(), a.end());
+    s.insert(b.begin(), b.end());
+    return vector<int>(s.begin(), s.end());
+}
+
+vector<int> findIntersection(vector<int>& a, vector<int>& b) {
+    set<int> s(a.begin(), a.end());
+    vector<int> inter;
+    for (int x : b)
+        if (s.find(x) != s.end())
+            inter.push_back(x);
+    sort(inter.begin(), inter.end());
+    inter.erase(unique(inter.begin(), inter.end()), inter.end());
+    return inter;
+}
+
+int main() {
+    vector<int> a = {1, 2, 4, 5, 6};
+    vector<int> b = {2, 3, 5, 7};
+
+    vector<int> uni = findUnion(a, b);
+    vector<int> inter = findIntersection(a, b);
+
+    cout << "Union: ";
+    for (int x : uni) cout << x << " ";
+    cout << "\nIntersection: ";
+    for (int x : inter) cout << x << " ";
+    return 0;
+}
