@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string s;
+    cout << "Enter a string: ";
+    getline(cin, s);
+
+    map<char, int> freq; 
+    for (char c : s) {
+        freq[c]++;
+    }
+
+    int maxi = 0;
+    for (auto it : freq) {
+        maxi = max(maxi, it.second);
+    }
+
+    cout << "Maximum Occurring Character(s): ";
+    for (auto it : freq) {
+        if (it.second == maxi) {
+            cout << it.first << " ";
+        }
+    }
+    cout << "\nFrequency: " << maxi << endl;
+
+    return 0;
+}
