@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int findPivot(vector<int>& arr, int s, int e) {
+    if (s > e) return -1;
+    if (s == e) return s;
+
+    int mid = s + (e - s) / 2;
+
+    if (mid < e && arr[mid] > arr[mid + 1])
+        return mid + 1;
+    if (mid > s && arr[mid] < arr[mid - 1])
+        return mid;
+
+    if (arr[mid] >= arr[s])
+        return findPivot(arr, mid + 1, e);
+    else
+        return findPivot(arr, s, mid - 1);
+}
+
+int main() {
+    vector<int> arr = {8, 10, 17, 1, 3};
+    int pivot = findPivot(arr, 0, arr.size() - 1);
+    cout << "Pivot index: " << pivot;
+    return 0;
+}
