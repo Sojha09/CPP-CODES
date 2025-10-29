@@ -1,0 +1,29 @@
+class Solution {
+public:
+
+long long hoursNeeded(const vector<int>& piles, int k) {
+        long long hours = 0;
+        for (int x : piles) {
+            // ceil(x / k) using integer math
+            hours += (x + k - 1) / k;
+        }
+        return hours;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) {
+         int low = 1;
+        int high = 0;
+        for (int x : piles) if (x > high) high = x;
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (hoursNeeded(piles, mid) <= h) {
+                // mid works, try slower (smaller) speed
+                high = mid;
+            } else {
+                // mid too slow
+                low = mid + 1;
+            }
+        }
+        return low; // minimum k
+    }
+};
