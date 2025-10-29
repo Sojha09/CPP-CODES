@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> intersection(vector<int>& a, vector<int>& b) {
+    unordered_map<int, int> freq;
+    vector<int> result;
+
+    for (int num : a)
+        freq[num]++;
+
+    for (int num : b) {
+        if (freq[num] > 0) {
+            result.push_back(num);
+            freq[num] = 0; // to avoid duplicates
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    vector<int> arr1 = {1, 2, 2, 3, 4};
+    vector<int> arr2 = {2, 2, 3, 5};
+
+    vector<int> ans = intersection(arr1, arr2);
+
+    cout << "Intersection: ";
+    for (int x : ans) cout << x << " ";
+    return 0;
+}
