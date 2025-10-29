@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> Smallestonleft(int arr[], int n) {
+    vector<int> ans;
+    stack<int> st;
+
+    for (int i = 0; i < n; i++) {
+        while (!st.empty() && st.top() >= arr[i]) {
+            st.pop();
+        }
+
+        if (st.empty()) {
+            ans.push_back(-1);
+        } else {
+            ans.push_back(st.top());
+        }
+        st.push(arr[i]);
+    }
+
+    return ans;
+}
+int main() {
+    int arr[] = {1, 6, 4, 10, 2, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    vector<int> res = Smallestonleft(arr, n);
+    for (int x : res)
+        cout << x << " ";
+
+    return 0;
+}
