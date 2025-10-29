@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Queue {
+    int front, rear, size;
+    int* arr;
+
+public:
+    Queue(int n) {
+        size = n;
+        arr = new int[n];
+        front = rear = -1;
+    }
+
+    void enqueue(int x) {
+        if (rear == size - 1) {
+            cout << "Queue Overflow\n";
+            return;
+        }
+        if (front == -1) front = 0;
+        arr[++rear] = x;
+    }
+
+    void dequeue() {
+        if (front == -1 || front > rear) {
+            cout << "Queue Underflow\n";
+            return;
+        }
+        front++;
+    }
+
+    int getFront() {
+        if (front == -1 || front > rear) {
+            cout << "Queue is Empty\n";
+            return -1;
+        }
+        return arr[front];
+    }
+
+    bool isEmpty() {
+        return (front == -1 || front > rear);
+    }
+};
+
+int main() {
+    Queue q(5);
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    cout << q.getFront() << endl;
+    q.dequeue();
+    cout << q.getFront() << endl;
+    return 0;
+}
