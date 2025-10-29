@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    Node(int val) {
+        data = val;
+        next = NULL;
+    }
+};
+
+class Solution {
+  public:
+    bool searchKey(Node* head, int key) {
+        Node* temp = head;
+        while (temp != NULL) {
+            if (temp->data == key)
+                return true;
+            temp = temp->next;
+        }
+        return false;
+    }
+};
+
+int main() {
+    Node* head = new Node(10);
+    head->next = new Node(20);
+    head->next->next = new Node(30);
+
+    Solution obj;
+    int key;
+    cin >> key;
+
+    if (obj.searchKey(head, key))
+        cout << "Key found";
+    else
+        cout << "Key not found";
+
+    return 0;
+}
