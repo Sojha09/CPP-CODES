@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int power(int base, int exp) {
+    if (exp == 0) return 1;
+    return base * power(base, exp - 1);
+}
+
+int reverseExponentiation(int n) {
+    if (n == 0) return 1;
+    if (n > 10) return -1;
+    return power(n, n);
+}
+
+int main() {
+    int n;
+    cin >> n;
+    cout << reverseExponentiation(n);
+    return 0;
+}
