@@ -1,0 +1,19 @@
+class Solution {
+  public:
+    // Function to count the number of digits in n that evenly divide n
+   int helper(int original, int n) {
+        if (n == 0) return 0;
+
+        int digit = n % 10;
+        int count = 0;
+
+        if (digit != 0 && original % digit == 0)
+            count = 1;
+
+        return count + helper(original, n / 10);
+    }
+
+    int evenlyDivides(int n) {
+        return helper(n, n);
+    }
+};
