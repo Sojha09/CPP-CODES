@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string removeDuplicates(string s) {
+    unordered_set<char> seen;
+    string result = "";
+    for (char c : s) {
+        if (seen.find(c) == seen.end()) {
+            result += c;
+            seen.insert(c);
+        }
+    }
+    return result;
+}
+
+int main() {
+    string s = "sefrgytouiserty";
+    cout << removeDuplicates(s);
+    return 0;
+}
