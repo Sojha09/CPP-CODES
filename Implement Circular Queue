@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class CircularQueue {
+    int *arr;
+    int front, rear, size, capacity;
+
+public:
+    CircularQueue(int n) {
+        capacity = n;
+        arr = new int[n];
+        front = -1;
+        rear = -1;
+        size = 0;
+    }
+
+    void enqueue(int x) {
+        if (size == capacity) {
+            cout << "Queue Overflow\n";
+            return;
+        }
+        if (front == -1) front = 0;
+        rear = (rear + 1) % capacity;
+        arr[rear] = x;
+        size++;
+    }
+
+    void dequeue() {
+        if (size == 0) {
+            cout << "Queue Underflow\n";
+            return;
+        }
+        front = (front + 1) % capacity;
+        size--;
+        if (size == 0) {
+            front = -1;
+            rear = -1;
+        }
+    }
+
+    int getFront() {
+        if (size == 0) {
+            cout << "Queue is Empty\n";
+            return -1;
+        }
+        return arr[front];
+    }
+
+    bool isEmpty() {
+        return size == 0;
+    }
+
+    bool isFull() {
+        return size == capacity;
+    }
+};
+
+int main() {
+    CircularQueue q(5);
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    cout << q.getFront() << endl;
+    q.dequeue();
+    cout << q.getFront() << endl;
+    q.enqueue(40);
+    q.enqueue(50);
+    q.enqueue(60);
+    cout << (q.isFull() ? "Queue is Full" : "Queue not Full") << endl;
+    return 0;
+}
