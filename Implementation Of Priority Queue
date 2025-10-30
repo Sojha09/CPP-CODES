@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    // Max-heap 
+    priority_queue<int> pq;
+
+    pq.push(10);
+    pq.push(30);
+    pq.push(20);
+    pq.push(5);
+
+    cout << "Max-Heap Priority Queue: ";
+    while(!pq.empty()) {
+        cout << pq.top() << " ";
+        pq.pop();
+    }
+    cout << endl;
+
+    // Min-hea (using greater<int>)
+    priority_queue<int, vector<int>, greater<int>> minpq;
+
+    minpq.push(10);
+    minpq.push(30);
+    minpq.push(20);
+    minpq.push(5);
+
+    cout << "Min-Heap Priority Queue: ";
+    while(!minpq.empty()) {
+        cout << minpq.top() << " ";
+        minpq.pop();
+    }
+    cout << endl;
+
+    return 0;
+}
