@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxChunksToSorted(vector<int>& arr) {
+    stack<int> st;
+    for (int num : arr) {
+        int maxVal = num;
+        while (!st.empty() && num < st.top()) {
+            maxVal = max(maxVal, st.top());
+            st.pop();
+        }
+        st.push(maxVal);
+    }
+    return st.size();
+}
+
+int main() {
+    vector<int> arr = {2,1,3,4,4};
+    cout << maxChunksToSorted(arr);
+    return 0;
+}
