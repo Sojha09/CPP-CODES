@@ -1,4 +1,7 @@
-int five = 0, ten = 0;
+class Solution {
+public:
+    bool lemonadeChange(vector<int>& bills) {
+        int five = 0, ten = 0;
         for (int bill : bills) {
             if (bill == 5) {
                 five++;
@@ -18,3 +21,5 @@ int five = 0, ten = 0;
             }
         }
         return true;
+    }
+};
