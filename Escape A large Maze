@@ -1,0 +1,35 @@
+class Solution {
+    private int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    
+    public boolean isEscapePossible(int[][] blocked, int[] source, int[] target) {
+        Set<String> block = new HashSet<>();
+        for (int[] p : blocked) {
+            block.add(p[0] + "->" + p[1]);
+        }
+        
+        return dfs(source, target, source, block, new HashSet<>()) && 
+            dfs(target, source, target, block, new HashSet<>());
+    }
+    
+    private boolean dfs(int[] source, int[] target, int[] cur, 
+        Set<String> block, Set<String> visited) {
+        if (cur[0] == target[0] && cur[1] == target[1]) return true;
+        if (Math.abs(source[0] - cur[0]) + Math.abs(source[1] - cur[1]) > 200) return true;
+        
+        visited.add(cur[0] + "->" + cur[1]);
+        for (int[] d : dirs) {
+            int r = d[0] + cur[0];
+            int c = d[1] + cur[1];
+            String str = r + "->" + c;
+            
+            if (r >= 0 && r < 1000000 && 
+               c >= 0 && c < 1000000 && 
+               !block.contains(str) && 
+               !visited.contains(str)) {
+                if (dfs(source, target, new int[]{r, c}, block, visited)) return true;
+            }
+        }
+        
+        return false;
+    }
+}
