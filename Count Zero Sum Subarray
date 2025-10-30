@@ -1,0 +1,19 @@
+class Solution {
+  public:
+    long long findSubarray(vector<int>& arr) {
+        unordered_map<long long, int> m;
+        long long sum = 0, count = 0;
+        m[0] = 1; // base case
+        
+        for (int i = 0; i < arr.size(); i++) {
+            sum += arr[i];
+            
+            if (m.find(sum) != m.end()) 
+                count += m[sum];
+            
+            m[sum]++;
+        }
+        
+        return count;
+    }
+};
