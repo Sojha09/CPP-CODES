@@ -1,0 +1,46 @@
+class Solution {
+  public:
+  
+  bool checkCycleUsingDfs(int src,unordered_map<int,bool>&visited,unordered_map<int,list<int>>&adjList,unordered_map<int,bool>&dfsVisited){
+      visited[src]=true;
+      dfsVisited[src]=true;
+      
+      for(auto nbr:adjList[src]){
+          if(!visited[nbr]){
+              bool AageKaAnswer=checkCycleUsingDfs(nbr,visited,adjList,dfsVisited);
+              if(AageKaAnswer==true){
+                  return true;
+              }
+              }else if(dfsVisited[nbr]==true){
+                  return true;
+              
+          }
+      }
+      dfsVisited[src]=false;
+      return false;
+  }
+    bool isCyclic(int V, vector<vector<int>> &edges) {
+        // code here
+        unordered_map<int,list<int>> adjList;
+        for (auto e : edges) {
+            int u = e[0];
+            int v = e[1];
+            adjList[u].push_back(v);
+            
+        }
+
+        unordered_map<int,bool> visited;
+        unordered_map<int,bool>dfsVisited;
+
+        // Handle disconnected graphs
+        for (int i = 0; i < V; i++) {
+            if (!visited[i]) {
+                if (checkCycleUsingDfs(i, visited, adjList,dfsVisited)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+        
+    }
+};
