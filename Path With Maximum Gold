@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int m, n;
+    int maxGold = 0;
+
+    int dfs(vector<vector<int>>& grid, int i, int j) {
+        // Base conditions
+        if (i < 0 || j < 0 || i >= m || j >= n || grid[i][j] == 0)
+            return 0;
+
+        int gold = grid[i][j]; // collect gold
+        grid[i][j] = 0;        // mark visited
+
+        // Explore all four directions
+        int up = dfs(grid, i - 1, j);
+        int down = dfs(grid, i + 1, j);
+        int left = dfs(grid, i, j - 1);
+        int right = dfs(grid, i, j + 1);
+
+        // Restore the gold for backtracking
+        grid[i][j] = gold;
+
+        // Return gold collected in this path
+        return gold + max({up, down, left, right});
+    }
+
+    int getMaximumGold(vector<vector<int>>& grid) {
+        m = grid.size();
+        n = grid[0].size();
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] != 0) {
+                    maxGold = max(maxGold, dfs(grid, i, j));
+                }
+            }
+        }
+        return maxGold;
+    }
+};
