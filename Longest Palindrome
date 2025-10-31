@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+       unordered_map<char, int> m;
+        for(auto c : s)
+        {
+            if(m.count(c) < 1)
+                m[c] = 1;
+            else
+                m[c]++;
+        }
+        int l = 0, o = 0;
+        for(auto v : m)
+        {
+            if(v.second % 2 == 0)
+                l+=v.second;
+            else
+            {
+                if(v.second > 2)
+                    l+= v.second - 1;
+                o = 1;
+            }
+        }
+        return l + o; 
+    }
+};
