@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct TrieNode {
+    TrieNode* children[26];
+    bool isEndOfWord;
+    TrieNode() {
+        isEndOfWord = false;
+        for (int i = 0; i < 26; i++)
+            children[i] = nullptr;
+    }
+};
+
+class Trie {
+public:
+    TrieNode* root;
+    Trie() { root = new TrieNode(); }
+
+    void insert(string word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            int index = c - 'a';
+            if (!node->children[index])
+                node->children[index] = new TrieNode();
+            node = node->children[index];
+        }
+        node->isEndOfWord = true;
+    }
+
+    int countWords(TrieNode* node) {
+        if (!node) return 0;
+        int count = node->isEndOfWord ? 1 : 0;
+        for (int i = 0; i < 26; i++)
+            count += countWords(node->children[i]);
+        return count;
+    }
+};
+
+int main() {
+    Trie t;
+    t.insert("app");
+    t.insert("apple");
+    t.insert("bat");
+
+    cout << "Total words in Trie: " << t.countWords(t.root) << endl;
+    return 0;
+}
